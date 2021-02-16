@@ -28,5 +28,9 @@ public class SubscriptionService {
 	public void delete(String icao) {
 		subscriptionRepository.deleteByIcao(icao);
 	}
+
+	public void updateTopic(String icao, Subscription subscription) {
+		subscriptionRepository.save(subscription);
+	}
 	
 }

@@ -64,14 +64,14 @@ public class MetarService {
 
 		HttpResponse<String> httpResponse = client.send(request, HttpResponse.BodyHandlers.ofString());
 		String xmlFile = httpResponse.body();
-		
+					
 		DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-        documentBuilderFactory.setValidating(false);
-        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-        Document document = documentBuilder.parse(new InputSource(new StringReader(xmlFile)));
-        document.getDocumentElement().normalize();
-        
-        NodeList metarData = document.getElementsByTagName("METAR");
+		documentBuilderFactory.setValidating(false);
+		DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+		Document document = documentBuilder.parse(new InputSource(new StringReader(xmlFile)));
+		document.getDocumentElement().normalize();
+			        
+		NodeList metarData = document.getElementsByTagName("METAR");
         
         for(int i = 0; i < metarData.getLength(); ++i) {
 	    	Node node = metarData.item(i);
