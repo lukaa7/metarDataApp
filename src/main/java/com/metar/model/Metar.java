@@ -15,6 +15,11 @@ public class Metar {
 	private String icao;
 	
 	private String data;
+	private String dataTimestamp;
+	private String windStrength;
+	private String temperature;
+	private String visibilityStatute;
+	
 
 	public String getIcao() {
 		return icao;
@@ -31,5 +36,39 @@ public class Metar {
 	public void setData(String data) {
 		this.data = data;
 	}
+
+	public String getDataTimestamp() {
+		return dataTimestamp;
+	}
+
+	public void setDataTimestamp(String dataTimestamp) {
+		this.dataTimestamp = dataTimestamp;
+	}
+
+	public String getWindStrength() {
+		return windStrength;
+	}
+
+	public void setWindStrength(String windStrength) {
+		this.windStrength = windStrength;
+	}
+
+	public String getTemperature() {
+		return temperature;
+	}
+
+	public void setTemperature(String temperature) {
+		this.temperature = temperature;
+	}
+
+	public String getVisibilityStatute() {
+		return visibilityStatute;
+	}
+
+	public void setVisibilityStatute(String visibilityStatute) {
+		this.visibilityStatute = visibilityStatute;
+	}
+
+	
 	
 }

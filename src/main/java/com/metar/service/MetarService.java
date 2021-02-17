@@ -37,6 +37,7 @@ public class MetarService {
 	private MetarRepository metarRepository;
 	
 	private Map<String, String> metarDataMap = new HashMap<>();
+	private NodeList metarNodeList;
 	private final String METAR_DATA_URL = "https://www.aviationweather.gov/adds/dataserver_current/current/metars.cache.xml";
 	
 	public List<Metar> getAllMetarData() {
@@ -47,6 +48,10 @@ public class MetarService {
 		metarRepository.save(metar);
 	}
 	
+	public NodeList getMetarNodeList() {
+		return metarNodeList;
+	}
+
 	public void delete(String icao) {
 		metarRepository.deleteByIcao(icao);
 	}
@@ -80,6 +85,7 @@ public class MetarService {
 		document.getDocumentElement().normalize();
 			        
 		NodeList metarData = document.getElementsByTagName("METAR");
+		metarNodeList = metarData;
         
         for(int i = 0; i < metarData.getLength(); ++i) {
 	    	Node node = metarData.item(i);
@@ -88,6 +94,7 @@ public class MetarService {
 	               metarDataMap.put(element.getElementsByTagName("station_id").item(0).getTextContent(), element.getElementsByTagName("raw_text").item(0).getTextContent());
 	        }
 		}
+        
 	}
 	
 	public void addNewSubscription(Subscription subscription) {
