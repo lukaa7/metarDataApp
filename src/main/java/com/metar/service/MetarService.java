@@ -55,6 +55,14 @@ public class MetarService {
 		return metarDataMap;
 	}
 	
+	public List<Metar> findByIsActive() {
+		return metarRepository.findByIsActive();
+	}
+	
+	public List<Metar> findByMatchingLetters(String keyword) {
+		return metarRepository.findByMatchingLetters(keyword);
+	}
+	
 	@Scheduled(fixedRateString = "300000")
 	public void parse() throws ParserConfigurationException, IOException, InterruptedException, SAXException {
 		HttpClient client = HttpClient.newHttpClient();

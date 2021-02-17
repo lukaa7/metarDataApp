@@ -33,4 +33,12 @@ public class SubscriptionService {
 		subscriptionRepository.save(subscription);
 	}
 	
+	public List<Subscription> findByIsActive() {
+		return subscriptionRepository.findByIsActive();
+	}
+	
+	public List<Subscription> findByMatchingLetters(String keyword) {
+		return subscriptionRepository.findByMatchingLetters(keyword);
+	}
+	
 }

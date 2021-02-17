@@ -51,6 +51,16 @@ public class MetarController {
 		subscriptionService.delete(icao);
 	}
 	
+	@GetMapping("/active")
+	public List<Metar> getAllActiveMetarData() {
+		return metarService.findByIsActive();
+	}
+	
+	@GetMapping("/{keyword}")
+	public List<Metar> getAllMetarDataByMatchingLetters(@PathVariable String keyword) {
+		return metarService.findByMatchingLetters(keyword);
+	}
+	
 	@Scheduled(fixedRateString = "300000", initialDelayString = "5000")
 	public void saveAllMetarData() {
 		for(Subscription subscription : subscriptionService.getAllSubscriptions()) {

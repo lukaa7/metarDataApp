@@ -52,4 +52,14 @@ public class SubscriptionController {
 		subscriptionService.updateTopic(icao, subscription);
 	}
 	
+	@GetMapping("/active")
+	public List<Subscription> getAllActiveSubscriptions() {
+		return subscriptionService.findByIsActive();
+	}
+	
+	@GetMapping("/{keyword}")
+	public List<Subscription> getAllMetarDataByMatchingLetters(@PathVariable String keyword) {
+		return subscriptionService.findByMatchingLetters(keyword);
+	}
+	
 }
