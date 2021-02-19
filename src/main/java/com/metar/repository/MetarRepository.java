@@ -20,4 +20,6 @@ public interface MetarRepository extends JpaRepository<Metar, String> {
 	@Query(value = "SELECT m FROM Metar m WHERE m.icao LIKE :keyword% ")
 	List<Metar> findByMatchingLetters(@Param("keyword") String keyword);
 	
+	
+	
 }

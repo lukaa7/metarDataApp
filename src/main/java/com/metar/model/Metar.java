@@ -20,10 +20,20 @@ public class Metar {
 	private String temperature;
 	private String visibilityStatute;
 	
+	
+	public Metar() {
+	}
+	
+	public Metar(String data) {
+		super();
+		this.data = data;
+	}
+
 
 	public String getIcao() {
 		return icao;
 	}
+	
 
 	public void setIcao(String icao) {
 		this.icao = icao;
