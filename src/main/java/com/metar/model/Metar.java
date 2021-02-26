@@ -5,6 +5,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSetter;
+
 
 @Entity
 @Table(name="metar_data")
@@ -20,21 +23,12 @@ public class Metar {
 	private String temperature;
 	private String visibilityStatute;
 	
-	
-	public Metar() {
-	}
-	
-	public Metar(String data) {
-		super();
-		this.data = data;
-	}
-
-
+	//@JsonIgnore
 	public String getIcao() {
 		return icao;
 	}
 	
-
+	//@JsonSetter
 	public void setIcao(String icao) {
 		this.icao = icao;
 	}

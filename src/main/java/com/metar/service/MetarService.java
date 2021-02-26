@@ -1,11 +1,7 @@
 package com.metar.service;
 
+import java.io.File;
 import java.io.IOException;
-import java.io.StringReader;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,11 +18,9 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import com.metar.model.Metar;
-import com.metar.model.Subscription;
 import com.metar.repository.MetarRepository;
 
 @Service
@@ -38,7 +32,6 @@ public class MetarService {
 	
 	private Map<String, String> metarDataMap = new HashMap<>();
 	private NodeList metarNodeList;
-	private final String METAR_DATA_URL = "https://www.aviationweather.gov/adds/dataserver_current/current/metars.cache.xml";
 	
 	public List<Metar> getAllMetarData() {
 		return metarRepository.findAll();
@@ -68,20 +61,14 @@ public class MetarService {
 		return metarRepository.findByMatchingLetters(keyword);
 	}
 	
-	@Scheduled(fixedRateString = "300000")
+	@Scheduled(fixedRateString = "305000")
 	public void parse() throws ParserConfigurationException, IOException, InterruptedException, SAXException {
-		HttpClient client = HttpClient.newHttpClient();
-		HttpRequest request = HttpRequest.newBuilder()
-					.uri(URI.create(METAR_DATA_URL))
-					.build();
-
-		HttpResponse<String> httpResponse = client.send(request, HttpResponse.BodyHandlers.ofString());
-		String xmlFile = httpResponse.body();
+		File xmlFile = new File("C:\\Users\\Luka\\MDA\\metar.xml");
 					
 		DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
 		documentBuilderFactory.setValidating(false);
 		DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-		Document document = documentBuilder.parse(new InputSource(new StringReader(xmlFile)));
+		Document document = documentBuilder.parse(xmlFile);
 		document.getDocumentElement().normalize();
 			        
 		NodeList metarData = document.getElementsByTagName("METAR");
@@ -97,27 +84,13 @@ public class MetarService {
         
 	}
 	
-	public void addNewSubscription(Subscription subscription) {
-		for (Map.Entry<String, String> entry : metarDataMap.entrySet()) {
-		    if(entry.getKey().equals(subscription.getIcao())) {
-		    	Metar metarData = new Metar();
-     		   	metarData.setIcao(entry.getKey());
-     		   	metarData.setData(entry.getValue());
-     		   	metarRepository.save(metarData);
-     		   	break;
-		    }
-		}
-	}
-	
 	public boolean isIcaoValid(String icao) {
-		boolean isValid = false;
 		for (Map.Entry<String, String> entry : metarDataMap.entrySet()) {
 			if(entry.getKey().equals(icao)) {
-		    	isValid = true;
-		    	break;
+		    	return true;
 		    }
 		}
-		return isValid;
+		return false;
 	}
 	
 }

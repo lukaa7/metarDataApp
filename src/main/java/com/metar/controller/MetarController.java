@@ -95,8 +95,8 @@ public class MetarController {
 		return subsetList;
 	}
 	
-	@Scheduled(fixedRateString = "300000", initialDelayString = "5000")
-	public void saveAllMetarData() {
+	@Scheduled(fixedRateString = "305000", initialDelayString = "5000")
+	public void refreshAllMetarData() {
 		for(Subscription subscription : subscriptionService.getAllSubscriptions()) {
 			for(int i = 0; i < metarService.getMetarNodeList().getLength(); ++i) {
 		    	Node node = metarService.getMetarNodeList().item(i);
@@ -116,5 +116,4 @@ public class MetarController {
 			}
 		}
 	}
-		
 }
